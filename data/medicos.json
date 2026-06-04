@@ -1,0 +1,30 @@
+﻿[
+  {
+    "Id": 1,
+    "Nombre": "Luis",
+    "Apellido": "Martínez",
+    "Especialidad": "Cardiología",
+    "NumeroLicencia": "LIC-12345"
+  },
+  {
+    "Id": 2,
+    "Nombre": "Elena",
+    "Apellido": "Ríos",
+    "Especialidad": "Pediatría",
+    "NumeroLicencia": "LIC-67890"
+  },
+  {
+    "Id": 3,
+    "Nombre": "Jorge",
+    "Apellido": "Alva",
+    "Especialidad": "Medicina General",
+    "NumeroLicencia": "LIC-45678"
+  },
+  {
+    "Id": 4,
+    "Nombre": "Manuel",
+    "Apellido": "Tello",
+    "Especialidad": "Psicología",
+    "NumeroLicencia": "LIC-45900"
+  }
+]
