@@ -1,4 +1,4 @@
-﻿[
+[
   {
     "Id": 1,
     "PacienteId": 1,
@@ -23,7 +23,7 @@
     "MedicoId": 1,
     "Fecha": "2026-06-17",
     "Hora": "11:15:00",
-    "Motivo": "Revisión de exámenes de laboratorio",
+    "Motivo": "Revisi\u00F3n de ex\u00E1menes de laboratorio",
     "Estado": "Cancelada"
   },
   {
@@ -42,6 +42,15 @@
     "Fecha": "2026-06-19",
     "Hora": "07:00:00",
     "Motivo": "Inicios de gastritis",
+    "Estado": "Pendiente"
+  },
+  {
+    "Id": 6,
+    "PacienteId": 5,
+    "MedicoId": 5,
+    "Fecha": "2026-06-24",
+    "Hora": "21:15:00",
+    "Motivo": "Dolor de espalda ",
     "Estado": "Pendiente"
   }
 ]

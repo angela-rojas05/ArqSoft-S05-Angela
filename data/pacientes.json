@@ -1,4 +1,4 @@
-﻿[
+[
   {
     "Id": 1,
     "Nombre": "Carlos",
@@ -9,23 +9,29 @@
   {
     "Id": 2,
     "Nombre": "Ana",
-    "Apellido": "Gómez",
+    "Apellido": "G\u00F3mez",
     "Email": "ana.gomez@mail.com",
     "Telefono": "555-0456"
   },
   {
     "Id": 3,
-    "Nombre": "Sofía",
+    "Nombre": "Sof\u00EDa",
     "Apellido": "Castro",
     "Email": "sofia.castro@mail.com",
     "Telefono": "555-0789"
   },
   {
     "Id": 4,
-    "Nombre": "Ángela",
+    "Nombre": "Angela",
     "Apellido": "Rojas",
     "Email": "angela.rojas@mail.com",
     "Telefono": "555-0566"
+  },
+  {
+    "Id": 5,
+    "Nombre": "Damian",
+    "Apellido": "Coba",
+    "Email": "dami.coba@mail.com",
+    "Telefono": "555-4444"
   }
-
 ]

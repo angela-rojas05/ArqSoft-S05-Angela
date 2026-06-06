@@ -40,5 +40,34 @@ namespace CitasApp.Controllers
 
             return View(paciente);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Paciente paciente)
+        {
+            var pacientes = ObtenerPacientesDesdeJson();
+
+            paciente.Id = pacientes.Count > 0
+                ? pacientes.Max(p => p.Id) + 1
+                : 1;
+
+            pacientes.Add(paciente);
+
+            var opciones = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+
+            System.IO.File.WriteAllText(
+                _jsonPath,
+                JsonSerializer.Serialize(pacientes, opciones)
+            );
+
+            return RedirectToAction("Index");
+        }
     }
 }

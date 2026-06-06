@@ -1,5 +1,13 @@
 ﻿@model List<CitasApp.Models.Medico>
 <h1>Médicos disponibles</h1>
+
+<p>
+    <a asp-controller="Medico"
+       asp-action="Create">
+        Agregar médico
+    </a>
+</p>
+
 <table border="1" cellpadding="8">
     <tr>
         <th>Nombre</th>

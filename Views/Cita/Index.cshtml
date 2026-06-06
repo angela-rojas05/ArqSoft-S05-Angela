@@ -7,6 +7,15 @@
 
 
 <h1>Agenda de citas</h1>
+
+<p>
+    <a asp-controller="Cita"
+       asp-action="Create">
+        Agregar cita
+    </a>
+</p>
+
+
 <table border="2" cellpadding="9">
     <tr>
         <th>Fecha</th>
@@ -16,7 +25,6 @@
         <th>Motivo</th>
         <th>Estado</th>
     </tr>
-
    
     @foreach (var c in Model)
     {

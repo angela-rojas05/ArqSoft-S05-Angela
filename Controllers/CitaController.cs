@@ -79,5 +79,38 @@ namespace CitasApp.Controllers
 
             return View(citasPaciente);
         }
+
+        public IActionResult Create()
+        {
+            ViewBag.Pacientes = ObtenerPacientesDesdeJson();
+            ViewBag.Medicos = ObtenerMedicosDesdeJson();
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Cita cita)
+        {
+            var citas = ObtenerCitasDesdeJson();
+
+            cita.Id = citas.Count > 0
+                ? citas.Max(c => c.Id) + 1
+                : 1;
+
+            citas.Add(cita);
+
+            var opciones = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+
+            System.IO.File.WriteAllText(
+                _jsonPath,
+                JsonSerializer.Serialize(citas, opciones)
+            );
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

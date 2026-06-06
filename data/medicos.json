@@ -1,16 +1,16 @@
-﻿[
+[
   {
     "Id": 1,
     "Nombre": "Luis",
-    "Apellido": "Martínez",
-    "Especialidad": "Cardiología",
+    "Apellido": "Mart\u00EDnez",
+    "Especialidad": "Cardiolog\u00EDa",
     "NumeroLicencia": "LIC-12345"
   },
   {
     "Id": 2,
     "Nombre": "Elena",
-    "Apellido": "Ríos",
-    "Especialidad": "Pediatría",
+    "Apellido": "R\u00EDos",
+    "Especialidad": "Pediatr\u00EDa",
     "NumeroLicencia": "LIC-67890"
   },
   {
@@ -24,7 +24,21 @@
     "Id": 4,
     "Nombre": "Manuel",
     "Apellido": "Tello",
-    "Especialidad": "Psicología",
+    "Especialidad": "Psicolog\u00EDa",
     "NumeroLicencia": "LIC-45900"
+  },
+  {
+    "Id": 5,
+    "Nombre": "Angel",
+    "Apellido": "Lugo",
+    "Especialidad": "Ur\u00F3logo ",
+    "NumeroLicencia": "LIC-43200"
+  },
+  {
+    "Id": 6,
+    "Nombre": "Jose",
+    "Apellido": "Lopez",
+    "Especialidad": "Medico General",
+    "NumeroLicencia": "LIC-29394"
   }
 ]

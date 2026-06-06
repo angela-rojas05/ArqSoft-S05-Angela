@@ -27,6 +27,8 @@ namespace CitasApp.Controllers
             return View(medicos);
         }
 
+
+
         // Muestra el detalle de un médico y su especialidad
         public IActionResult Detalle(int id)
         {
@@ -39,6 +41,35 @@ namespace CitasApp.Controllers
             }
 
             return View(medico);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Medico medico)
+        {
+            var medicos = ObtenerMedicosDesdeJson();
+
+            medico.Id = medicos.Count > 0
+                ? medicos.Max(m => m.Id) + 1
+                : 1;
+
+            medicos.Add(medico);
+
+            var opciones = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+
+            System.IO.File.WriteAllText(
+                _jsonPath,
+                JsonSerializer.Serialize(medicos, opciones)
+            );
+
+            return RedirectToAction("Index");
         }
     }
 }
