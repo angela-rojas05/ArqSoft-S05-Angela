@@ -187,6 +187,23 @@ El proyecto sigue el patrón de arquitectura **Modelo-Vista-Controlador (MVC)**,
 
 # 📷 Capturas de pantalla
 
+
+![Home](img/Home.png)
+
+![Privacy](img/Privacy.png)
+
+![Cita](img/Cita.png)
+
+![Agregar Cita](img/AgCita.png)
+
+![Médico](img/Medico.png)
+
+![Agregar Médico](img/AgMedico.png)
+
+![Paciente](img/Paciente.png)
+
+![Agregar Paciente](img/AgPaciente.png)
+
 ---
 
 # 🤖 Cláusula de IA
@@ -195,13 +212,13 @@ En este proyecto se utilizaron herramientas de Inteligencia Artificial (IA) como
 
 La IA se usó específicamente para:
 
-Datos: Ayuda con la lectura y sincronización de archivos JSON.
+- Datos: Ayuda con la lectura y sincronización de archivos JSON.
 
-Controladores: Soporte para conectar los controladores con el almacenamiento.
+- Controladores: Soporte para conectar los controladores con el almacenamiento.
 
-Diseño: Sugerencias de estilos CSS y diseño visual.
+- Diseño: Sugerencias de estilos CSS y diseño visual.
 
-Vistas: Apoyo para crear los formularios y botones de pacientes, médicos y citas.
+- Vistas: Apoyo para crear los formularios y botones de pacientes, médicos y citas.
 
 ---
 
