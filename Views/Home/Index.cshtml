@@ -1,8 +1,45 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<div class="text-center">
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="bienvenida-box">
+
+        <h1 class="display-4">
+            Sistema de Citas Médicas
+        </h1>
+
+        <p class="home-descripcion">
+            Bienvenido al Sistema de Citas Médicas, una aplicación desarrollada para
+            facilitar la administración de pacientes, médicos y citas de manera
+            sencilla y organizada.
+
+            A través de este sistema es posible consultar la información registrada,
+            agregar nuevos pacientes y médicos, programar citas y visualizar el
+            historial de atención, permitiendo una mejor gestión de los servicios
+            médicos de una clínica o consultorio.
+        </p>
+
+        <!-- PEGAR AQUÍ -->
+        <div class="menu-principal">
+
+            <a asp-controller="Cita"
+               asp-action="Index"
+               class="btn-menu">
+                Citas
+            </a>
+
+            <a asp-controller="Medico"
+               asp-action="Index"
+               class="btn-menu">
+                Médicos
+            </a>
+
+            <a asp-controller="Paciente"
+               asp-action="Index"
+               class="btn-menu">
+                Pacientes
+            </a>
+
+        </div>
+
+    </div>
+
 </div>
