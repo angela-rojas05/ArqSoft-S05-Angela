@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@700&display=swap');
+
 html {
   font-size: 14px;
 }
@@ -28,4 +30,103 @@ body {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
+}
+
+/* ======== ESTILO GENERAL ======== */
+
+body {
+    background-color: #f4f8fb;
+    color: #243447;
+    font-family: 'Inter', sans-serif;
+}
+
+/* ======== NAVBAR ======== */
+
+.navbar {
+    background-color: #1e3a5f !important;
+}
+
+    .navbar a,
+    .navbar-brand {
+        color: white !important;
+        font-weight: 500;
+    }
+
+        .navbar a:hover {
+            color: #b7d8f5 !important;
+        }
+
+/* ======== TITULOS ======== */
+
+h1 {
+    color: #1e3a5f;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+/* ======== TABLAS ======== */
+
+table {
+    width: 100%;
+    background: white;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+th {
+    background-color: #2f6fad;
+    color: white;
+    padding: 14px;
+    text-align: left;
+    font-weight: 600;
+}
+
+td {
+    padding: 14px;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f7fbff;
+}
+
+tbody tr:hover {
+    background-color: #e7f1fb;
+    transition: 0.2s;
+}
+
+/* ======== BOTONES Y LINKS ======== */
+
+button,
+input[type=submit],
+.btn {
+    background-color: #2f6fad;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+    button:hover,
+    input[type=submit]:hover,
+    .btn:hover {
+        background-color: #25598d;
+    }
+
+/* ======== FORMULARIOS ======== */
+
+input,
+select {
+    width: 300px;
+    padding: 8px;
+    border: 1px solid #b7cde3;
+    border-radius: 5px;
+}
+
+label {
+    font-weight: bold;
+    color: #1e3a5f;
 }
