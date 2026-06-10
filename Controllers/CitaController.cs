@@ -4,113 +4,46 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using CitasApp.Interfaces;
 
 namespace CitasApp.Controllers
 {
     public class CitaController : Controller
     {
-        // Rutas a los archivos JSON
-        private readonly string _jsonPath =
-            Path.Combine(Directory.GetCurrentDirectory(), "data", "citas.json");
+        private readonly ICitaRepository _citaRepo;
+        private readonly IPacienteRepository _pacienteRepo;
+        private readonly IMedicoRepository _medicoRepo;
 
-        private readonly string _pacientesPath =
-            Path.Combine(Directory.GetCurrentDirectory(), "data", "pacientes.json");
-
-        private readonly string _medicosPath =
-            Path.Combine(Directory.GetCurrentDirectory(), "data", "medicos.json");
-
-        // Leer citas
-        private List<Cita> ObtenerCitasDesdeJson()
+        public CitaController(ICitaRepository citaRepo,
+                              IPacienteRepository pacienteRepo,
+                              IMedicoRepository medicoRepo)
         {
-            if (!System.IO.File.Exists(_jsonPath))
-                return new List<Cita>();
-
-            string jsonString = System.IO.File.ReadAllText(_jsonPath);
-
-            return JsonSerializer.Deserialize<List<Cita>>(jsonString)
-                   ?? new List<Cita>();
+            _citaRepo = citaRepo;
+            _pacienteRepo = pacienteRepo;
+            _medicoRepo = medicoRepo;
         }
 
-        // Leer pacientes
-        private List<Paciente> ObtenerPacientesDesdeJson()
-        {
-            if (!System.IO.File.Exists(_pacientesPath))
-                return new List<Paciente>();
-
-            string jsonString = System.IO.File.ReadAllText(_pacientesPath);
-
-            return JsonSerializer.Deserialize<List<Paciente>>(jsonString)
-                   ?? new List<Paciente>();
-        }
-
-        // Leer médicos
-        private List<Medico> ObtenerMedicosDesdeJson()
-        {
-            if (!System.IO.File.Exists(_medicosPath))
-                return new List<Medico>();
-
-            string jsonString = System.IO.File.ReadAllText(_medicosPath);
-
-            return JsonSerializer.Deserialize<List<Medico>>(jsonString)
-                   ?? new List<Medico>();
-        }
-
-        // Muestra la agenda completa de citas
         public IActionResult Index()
         {
-            var citas = ObtenerCitasDesdeJson();
-
-            ViewBag.Pacientes = ObtenerPacientesDesdeJson();
-            ViewBag.Medicos = ObtenerMedicosDesdeJson();
-
-            return View(citas);
+            ViewBag.Pacientes = _pacienteRepo.ObtenerTodos();
+            ViewBag.Medicos = _medicoRepo.ObtenerTodos();
+            return View(_citaRepo.ObtenerTodos());
         }
 
-        // Filtra las citas de un paciente específico
+        
+
         public IActionResult PorPaciente(int pacienteId)
         {
-            var citas = ObtenerCitasDesdeJson();
-            var citasPaciente = citas
-                .Where(c => c.PacienteId == pacienteId)
-                .ToList();
-
-            ViewBag.Pacientes = ObtenerPacientesDesdeJson();
-            ViewBag.Medicos = ObtenerMedicosDesdeJson();
-
-            return View(citasPaciente);
+            ViewBag.Pacientes = _pacienteRepo.ObtenerTodos();
+            ViewBag.Medicos = _medicoRepo.ObtenerTodos();
+            return View(_citaRepo.ObtenerPorPaciente(pacienteId));
         }
 
         public IActionResult Create()
         {
-            ViewBag.Pacientes = ObtenerPacientesDesdeJson();
-            ViewBag.Medicos = ObtenerMedicosDesdeJson();
-
             return View();
         }
-
-        [HttpPost]
-        public IActionResult Create(Cita cita)
-        {
-            var citas = ObtenerCitasDesdeJson();
-
-            cita.Id = citas.Count > 0
-                ? citas.Max(c => c.Id) + 1
-                : 1;
-
-            citas.Add(cita);
-
-            var opciones = new JsonSerializerOptions
-            {
-                WriteIndented = true
-            };
-
-            System.IO.File.WriteAllText(
-                _jsonPath,
-                JsonSerializer.Serialize(citas, opciones)
-            );
-
-            return RedirectToAction("Index");
-        }
-
     }
+
+
 }
