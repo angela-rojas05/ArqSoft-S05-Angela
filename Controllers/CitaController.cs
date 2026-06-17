@@ -27,7 +27,7 @@ namespace CitasApp.Controllers
         {
             ViewBag.Pacientes = _pacienteRepo.ObtenerTodos();
             ViewBag.Medicos = _medicoRepo.ObtenerTodos();
-            return View(_citaRepo.ObtenerTodos());
+            return View(_citaRepo.ObtenerTodas());
         }
 
         
