@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Punto de control - CitasApp - Calculadora</title>
+    <style>
+        :root {
+            --bg-1: #fff0f3;
+            --bg-2: #ffe1ea;
+            --card: #ffffff;
+            --border: #f7c6d9;
+            --text: #4a2535;
+            --muted: #b97a96;
+            --accent: #e8587f;
+            --accent-soft: #f7b6c9;
+            --ok: #2f9e6e;
+            --ok-bg: #e3f7ec;
+            --err: #d6336c;
+            --err-bg: #fde8ef;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Trebuchet MS', 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(160deg, var(--bg-1), var(--bg-2));
+            color: var(--text);
+            padding: 40px 32px;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: 26px;
+            margin-bottom: 4px;
+            color: var(--accent);
+            letter-spacing: .3px;
+        }
+
+            h1::before {
+                content: "🌸 ";
+            }
+
+        p.subtitle {
+            color: var(--muted);
+            margin-top: 0;
+            margin-bottom: 32px;
+            font-size: 13px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 22px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 20px 22px;
+            box-shadow: 0 6px 18px rgba(232, 88, 127, 0.08);
+            transition: transform .15s ease, box-shadow .15s ease;
+        }
+
+            .card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 10px 24px rgba(232, 88, 127, 0.14);
+            }
+
+            .card h2 {
+                font-size: 16px;
+                margin: 0 0 14px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                color: var(--text);
+            }
+
+        .badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: var(--accent-soft);
+            color: #8a1f43;
+        }
+
+        .row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        input {
+            background: #fff8fa;
+            border: 1px solid var(--border);
+            color: var(--text);
+            border-radius: 999px;
+            padding: 8px 14px;
+            width: 80px;
+            font-size: 13px;
+            outline: none;
+        }
+
+            input:focus {
+                border-color: var(--accent);
+                box-shadow: 0 0 0 3px rgba(232, 88, 127, 0.15);
+            }
+
+        button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 999px;
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .15s ease, transform .1s ease;
+        }
+
+            button:hover {
+                background: #d4416c;
+            }
+
+            button:active {
+                transform: scale(.96);
+            }
+
+            button.secondary {
+                background: var(--accent-soft);
+                color: #8a1f43;
+            }
+
+                button.secondary:hover {
+                    background: #f2a3bc;
+                }
+
+        pre {
+            background: #fff8fa;
+            border: 1px dashed var(--border);
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 12px;
+            max-height: 180px;
+            overflow: auto;
+            margin: 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+            color: #5c3147;
+        }
+
+        .status {
+            font-size: 11px;
+            margin-bottom: 6px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .4px;
+        }
+
+            .status.ok {
+                color: var(--ok);
+            }
+
+            .status.err {
+                color: var(--err);
+            }
+    </style>
+</head>
+<body>
+    <h1>Sitio de Pruebas - Api </h1>
+    <p class="subtitle">Punto de control endpoints - CitasApp - Calculadora</p>
+
+    <div class="grid">
+
+        <div class="card">
+            <h2>Pacientes <span class="badge">/api/pacientes</span></h2>
+            <div class="row">
+                <button onclick="listar('pacientes')">Listar todos</button>
+                <input id="pacientes-id" type="number" placeholder="id">
+                <button class="secondary" onclick="porId('pacientes')">Buscar por id</button>
+            </div>
+            <div id="pacientes-status" class="status"></div>
+            <pre id="pacientes-out">—</pre>
+        </div>
+
+        <div class="card">
+            <h2>Médicos <span class="badge">/api/medicos</span></h2>
+            <div class="row">
+                <button onclick="listar('medicos')">Listar todos</button>
+                <input id="medicos-id" type="number" placeholder="id">
+                <button class="secondary" onclick="porId('medicos')">Buscar por id</button>
+            </div>
+            <div id="medicos-status" class="status"></div>
+            <pre id="medicos-out">—</pre>
+        </div>
+
+        <div class="card">
+            <h2>Citas <span class="badge">/api/citas</span></h2>
+            <div class="row">
+                <button onclick="listar('citas')">Listar todas</button>
+                <input id="citas-pacienteId" type="number" placeholder="pacienteId">
+                <button class="secondary" onclick="porPaciente()">Por paciente</button>
+            </div>
+            <div id="citas-status" class="status"></div>
+            <pre id="citas-out">—</pre>
+        </div>
+
+        <div class="card">
+            <h2>Calculadora <span class="badge">/api/calculadora</span></h2>
+            <div class="row">
+                <input id="calc-a" type="number" placeholder="a" value="6">
+                <input id="calc-b" type="number" placeholder="b" value="3">
+            </div>
+            <div class="row">
+                <button onclick="calcular('sumar')">Sumar</button>
+                <button onclick="calcular('restar')">Restar</button>
+                <button onclick="calcular('multiplicar')">Multiplicar</button>
+                <button onclick="calcular('dividir')">Dividir</button>
+            </div>
+            <div id="calc-status" class="status"></div>
+            <pre id="calc-out">—</pre>
+        </div>
+
+    </div>
+
+    <script>
+    async function llamar(url, statusId, outId) {
+            var statusEl = document.getElementById(statusId);
+            var outEl = document.getElementById(outId);
+            statusEl.textContent = 'cargando...';
+            statusEl.className = 'status';
+            try {
+                var res = await fetch(url);
+                var data = await res.json().catch(function () { return null; });
+                outEl.textContent = JSON.stringify(data, null, 2);
+                statusEl.textContent = res.status + ' ' + res.statusText;
+                statusEl.className = 'status ' + (res.ok ? 'ok' : 'err');
+            } catch (e) {
+                outEl.textContent = String(e);
+                statusEl.textContent = 'error de red';
+                statusEl.className = 'status err';
+            }
+        }
+
+        function listar(recurso) {
+            llamar('/api/' + recurso, recurso + '-status', recurso + '-out');
+        }
+
+        function porId(recurso) {
+            var id = document.getElementById(recurso + '-id').value;
+            llamar('/api/' + recurso + '/' + id, recurso + '-status', recurso + '-out');
+        }
+
+        function porPaciente() {
+            var id = document.getElementById('citas-pacienteId').value;
+            llamar('/api/citas/porpaciente/' + id, 'citas-status', 'citas-out');
+        }
+
+        function calcular(op) {
+            var a = document.getElementById('calc-a').value;
+            var b = document.getElementById('calc-b').value;
+            llamar('/api/calculadora/' + op + '?a=' + a + '&b=' + b, 'calc-status', 'calc-out');
+        }</script>
+</body>
+</html>
