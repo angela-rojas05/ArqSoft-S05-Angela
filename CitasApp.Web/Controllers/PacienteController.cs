@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CitasApp.Models;
-using CitasApp.Interfaces;
+using CitasApp.Domain.Interfaces;
 
 namespace CitasApp.Controllers
 {

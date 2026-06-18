@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
-using CitasApp.Interfaces;
+using CitasApp.Domain.Interfaces;
 
 namespace CitasApp.Controllers
 {
