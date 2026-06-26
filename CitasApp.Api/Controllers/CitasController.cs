@@ -41,4 +41,12 @@ public class CitasController : ControllerBase
 
         return citas.Count == 0 ? NotFound() : Ok(citas);
     }
+
+
+    [HttpPost("{citaId}/confirmar")]
+    public IActionResult Confirmar(int citaId)
+    {
+        _citaService.Confirmar(citaId);
+        return Ok($"Cita {citaId} confirmada. Observers notificados.");
+    }
 }
