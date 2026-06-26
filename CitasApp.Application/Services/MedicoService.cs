@@ -1,5 +1,5 @@
 using CitasApp.Domain.Interfaces;
-using CitasApp.Models;
+using CitasApp.Domain.Models;
 
 namespace CitasApp.Application.Services;
 

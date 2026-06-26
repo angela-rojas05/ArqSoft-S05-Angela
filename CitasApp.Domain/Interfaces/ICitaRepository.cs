@@ -1,4 +1,4 @@
-﻿using CitasApp.Models;
+﻿using CitasApp.Domain.Models;
 
 namespace CitasApp.Domain.Interfaces
 {
