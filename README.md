@@ -1,25 +1,44 @@
-# Actividad #18 - Práctica .NET: Arquitectura Hexagonal en C#
+# Actividad #29 – Práctica .NET: Diagramas como código
 
 ## 📌 Datos institucionales
 
 - **Universidad:** Tecnológico de Software
 - **Materia:** Arquitectura de Software
-- **Proyecto:** CitasApp en hexagonal 
+- **Proyecto:** CitasApp en UML 
 - **Alumno:** Ángela Yaritzi Rojas Brito
 - **Grupo:** 3B
 - **Profesor:** Jorge Javier Pedrozo Romero
-- **Fecha:** 09/06/26
+- **Fecha:** 08/07/26
 
 ---
 
 # 📖 Descripción del proyecto
 
-El Sistema de Citas Médicas es una aplicación web diseñada para facilitar la administración de pacientes, médicos y citas dentro de un consultorio o clínica.
+CitasApp es un sistema de gestión de citas médicas desarrollado en ASP.NET Core que permite administrar la información de pacientes, médicos y citas dentro de un consultorio o clínica.
 
-El sistema permite registrar nuevos pacientes y médicos, programar citas médicas y consultar la información almacenada mediante una interfaz sencilla y organizada. Su objetivo es centralizar el control de las citas y mantener un registro básico de la información necesaria para la atención de los pacientes.
+El sistema ofrece funcionalidades para:
 
-Para esta versión del proyecto se implementó una arquitectura basada en el patrón de Arquitectura Hexagonal, separando las responsabilidades en diferentes capas para mejorar la organización, mantenibilidad y escalabilidad del sistema. Esta separación permite desacoplar la lógica de negocio de la interfaz de usuario y de los mecanismos de persistencia de datos.
+- Registrar pacientes.
+- Registrar médicos.
+- Programar citas médicas.
+- Consultar información almacenada.
+- Mantener la persistencia de los datos mediante distintos mecanismos de almacenamiento.
 
+Durante su evolución, el proyecto pasó de una arquitectura MVC tradicional a una solución basada en Arquitectura Hexagonal (Ports and Adapters), permitiendo separar las responsabilidades del sistema y reducir el acoplamiento entre las diferentes capas.
+
+La aplicación fue diseñada para que las reglas de negocio permanezcan independientes de la tecnología de persistencia utilizada. Actualmente el sistema soporta múltiples mecanismos de almacenamiento, tales como:
+
+- Archivos JSON.
+- Archivos CSV.
+- Base de datos SQLite.
+- Persistencia en memoria.
+
+Además, se incorporaron patrones de diseño GOF con el objetivo de mejorar la extensibilidad y mantenibilidad del sistema:
+
+- Factory Pattern.
+- Decorator Pattern.
+
+Esta evolución arquitectónica facilita futuras modificaciones, pruebas, mantenimiento y escalabilidad del sistema.
 
 ---
 
@@ -42,7 +61,23 @@ Durante el desarrollo del proyecto se utilizaron las siguientes tecnologías y h
 - Git para el control de versiones.
 - GitHub para el alojamiento del repositorio.
 - Bootstrap para elementos responsivos de la interfaz.
+- Arquitectura Hexagonal (Ports and Adapters).
+- Patrón Factory Method.
+- Patrón Decorator.
+- Archivos CSV.
+- SQLite.
+- Mermaid para documentación de arquitectura.
+- C4 ModeL.
 
+---
+
+# 🏛️ Documentación de Arquitectura
+
+La documentación de la arquitectura del sistema, así como el diagrama de componentes realizado con Mermaid, puede consultarse en el siguiente archivo:
+
+- [Arquitectura del Sistema](docs/arquitecturaUML.md)
+
+Este documento describe la evolución arquitectónica del proyecto, los componentes que conforman la solución, las relaciones entre las capas y los patrones de diseño implementados.
 
 ---
 
@@ -51,21 +86,41 @@ Durante el desarrollo del proyecto se utilizaron las siguientes tecnologías y h
 ## Funcionales
 
 - Registro de pacientes.
+- Consulta de pacientes.
+- Edición de pacientes.
+- Eliminación de pacientes.
+
 - Registro de médicos.
-- Programación de citas médicas.
-- Consulta de información de pacientes, médicos y citas.
-- Visualización de registros mediante tablas.
-- Persistencia de datos utilizando archivos JSON.
+- Consulta de médicos.
+- Edición de médicos.
+- Eliminación de médicos.
+
+- Registro de citas médicas.
+- Consulta de citas.
+- Edición de citas.
+- Eliminación de citas.
+
+- Persistencia de información mediante:
+  - JSON.
+  - CSV.
+  - SQLite.
+  - Memoria.
 
 ## Arquitectónicas
 
-- Separación de responsabilidades mediante Arquitectura Hexagonal.
-- Uso de interfaces para definir contratos de acceso a datos.
-- Implementación de repositorios para la gestión de información.
-- Desacoplamiento entre la lógica de negocio y la infraestructura.
-- Uso de inyección de dependencias para la resolución de servicios.
-- Organización modular mediante proyectos independientes.
-
+- Arquitectura Hexagonal.
+- Arquitectura en Capas.
+- Inyección de Dependencias.
+- Inversión de Dependencias.
+- Repositorios desacoplados.
+- Interfaces como puertos del dominio.
+- Adaptadores de infraestructura intercambiables.
+- Servicios de aplicación.
+- Principio Open/Closed.
+- Bajo acoplamiento.
+- Alta cohesión.
+- Documentación arquitectónica mediante Mermaid.
+- 
 ---
 
 # ▶️ ¿Cómo funciona?
@@ -75,32 +130,62 @@ La aplicación se encuentra dividida en cuatro proyectos principales que colabor
 ## Flujo general
 
 1. El usuario interactúa con la interfaz web.
-2. Los controladores reciben las solicitudes desde la capa Web.
-3. La capa Application coordina la lógica de aplicación y los casos de uso.
-4. La capa Domain define las entidades y contratos necesarios para operar.
-5. La capa Infrastructure implementa dichos contratos mediante repositorios.
-6. Los repositorios leen y actualizan la información almacenada en archivos JSON.
-7. Los resultados regresan hasta la interfaz para ser mostrados al usuario.
-
+2. Los Controllers reciben la solicitud HTTP.
+3. La capa Application coordina el caso de uso correspondiente.
+4. La capa Domain define las entidades y contratos necesarios.
+5. La capa Infrastructure proporciona la implementación concreta de dichos contratos.
+6. El Factory Pattern selecciona el repositorio adecuado.
+7. El Decorator agrega funcionalidades de logging sin modificar el repositorio original.
+8. El repositorio accede al mecanismo de persistencia configurado.
+9. La información regresa hasta la interfaz para ser presentada al usuario.
 
 ---
 
 ## Flujo de capas
 
-```text
-CitasApp.Web
-      │
-      ▼
-CitasApp.Application
-      │
-      ▼
-CitasApp.Domain
-      ▲
-      │
-CitasApp.Infrastructure
-      │
-      ▼
- Archivos JSON
+```
+Usuario
+   │
+   ▼
+CitasApp.Web / CitasApp.Api
+   │
+   │ Solicitudes HTTP
+   ▼
+Controllers
+   │
+   │ Casos de uso
+   ▼
+Application Services
+   │
+   │ Contratos (Interfaces)
+   ▼
+Domain
+   │
+   ├── IPacienteRepository
+   ├── IMedicoRepository
+   ├── ICitaRepository
+   └── ICitaObserver
+   │
+   ▼
+Infrastructure
+   │
+   ├── RepositoryFactory
+   │      │
+   │      └── Decide qué repositorio usar
+   │
+   ├── LoggingPacienteRepository
+   │      │
+   │      └── Agrega logs (Decorator)
+   │
+   ├── JsonRepositories
+   ├── MemoriaPacienteRepository
+   │
+   └── Observers
+          ├── EmailObserver
+          └── SmsObserver
+   │
+   ▼
+Archivos JSON
 ```
 
 Esta estructura permite modificar la forma de almacenamiento de datos o la interfaz de usuario sin afectar las reglas principales del negocio.
@@ -117,23 +202,28 @@ Todas las vistas comparten una plantilla común que mantiene una navegación uni
 
 ---
 
-# 📁 Estructura del proyecto
+# 📁 Estructura del Proyecto
 
 ```text
 CitasApp.sln
 │
+├── docs
+│   └── arquitectura.md
+│
 ├── CitasApp.Domain
 │   │
-│   ├── Models
-│   │   ├── Paciente.cs
-│   │   ├── Medico.cs
-│   │   ├── Cita.cs
-│   │   └── CitaJson.cs
+│   ├── Interfaces
+│   │   ├── IPacienteRepository.cs
+│   │   ├── IMedicoRepository.cs
+│   │   ├── ICitaRepository.cs
+│   │   └── ICitaObserver.cs
 │   │
-│   └── Interfaces
-│       ├── IPacienteRepository.cs
-│       ├── IMedicoRepository.cs
-│       └── ICitaRepository.cs
+│   └── Models
+│       ├── Paciente.cs
+│       ├── Medico.cs
+│       ├── Cita.cs
+│       ├── CitaJson.cs
+│       └── ErrorViewModel.cs
 │
 ├── CitasApp.Application
 │   │
@@ -144,39 +234,133 @@ CitasApp.sln
 │
 ├── CitasApp.Infrastructure
 │   │
-│   └── Repositories
-│       ├── JsonPacienteRepository.cs
-│       ├── JsonMedicoRepository.cs
-│       └── JsonCitaRepository.cs
+│   ├── Repositories
+│   │   ├── JsonPacienteRepository.cs
+│   │   ├── JsonMedicoRepository.cs
+│   │   ├── JsonCitaRepository.cs
+│   │   ├── CsvPacienteRepository.cs
+│   │   ├── CsvMedicoRepository.cs
+│   │   ├── CsvCitaRepository.cs
+│   │   ├── SqlitePacienteRepository.cs
+│   │   ├── SqliteMedicoRepository.cs
+│   │   ├── SqliteCitaRepository.cs
+│   │   ├── MemoriaPacienteRepository.cs
+│   │   ├── RepositoryFactory.cs
+│   │   └── LoggingPacienteRepository.cs
+│   │
+│   └── Observers
+│       ├── EmailObserver.cs
+│       └── SmsObserver.cs
 │
-└── CitasApp.Web
-    │
-    ├── Controllers
-    │   ├── HomeController.cs
-    │   ├── PacienteController.cs
-    │   ├── MedicoController.cs
-    │   └── CitaController.cs
-    │
-    ├── Views
-    │   ├── Home
-    │   ├── Paciente
-    │   ├── Medico
-    │   ├── Cita
-    │   └── Shared
-    │
-    ├── data
-    │   ├── pacientes.json
-    │   ├── medicos.json
-    │   └── citas.json
-    │
-    ├── wwwroot
-    │   ├── css
-    │   ├── js
-    │   └── lib
-    │
-    ├── Program.cs
-    └── appsettings.json
+├── CitasApp.Web
+│   │
+│   ├── Controllers
+│   │   ├── HomeController.cs
+│   │   ├── PacientesController.cs
+│   │   ├── MedicosController.cs
+│   │   └── CitasController.cs
+│   │
+│   ├── Views
+│   │   ├── Home
+│   │   ├── Pacientes
+│   │   ├── Medicos
+│   │   ├── Citas
+│   │   └── Shared
+│   │
+│   ├── data
+│   │   ├── pacientes.json
+│   │   ├── medicos.json
+│   │   └── citas.json
+│   │
+│   ├── wwwroot
+│   │   ├── css
+│   │   ├── js
+│   │   ├── img
+│   │   └── lib
+│   │
+│   ├── Program.cs
+│   └── appsettings.json
+│
+└── README.md
 ```
+
+---
+
+# 🧩 Patrones de Diseño Implementados
+
+Durante la evolución del proyecto se implementaron diversos patrones de diseño con el objetivo de mejorar la mantenibilidad, escalabilidad y flexibilidad del sistema.
+
+## Arquitectura Hexagonal (Ports and Adapters)
+
+Permite desacoplar la lógica de negocio de los mecanismos de persistencia y de la interfaz de usuario.
+
+Beneficios:
+
+- Bajo acoplamiento.
+- Alta cohesión.
+- Facilidad de pruebas.
+- Sustitución de tecnologías sin modificar el dominio.
+
+---
+
+## Repository Pattern
+
+Encapsula el acceso a datos y proporciona una interfaz uniforme para trabajar con:
+
+- JSON
+- CSV
+- SQLite
+- Memoria
+
+---
+
+## Factory Method
+
+La clase:
+
+- RepositoryFactory.cs
+
+es responsable de decidir qué implementación concreta del repositorio debe utilizarse dependiendo del entorno de ejecución.
+
+Beneficios:
+
+- Centraliza la creación de objetos.
+- Reduce dependencias.
+- Facilita agregar nuevas tecnologías de persistencia.
+
+---
+
+## Decorator
+
+La clase:
+
+- LoggingPacienteRepository.cs
+
+agrega funcionalidades de registro y monitoreo al repositorio de pacientes sin modificar su implementación original.
+
+Beneficios:
+
+- Extiende el comportamiento dinámicamente.
+- Cumple el principio Open/Closed.
+
+---
+
+## Observer
+
+Se implementó para permitir que el sistema reaccione automáticamente ante la creación de nuevas citas médicas.
+
+Participantes:
+
+- ICitaObserver
+- EmailObserver
+- SmsObserver
+
+Beneficios:
+
+- Bajo acoplamiento.
+- Permite agregar nuevos observadores fácilmente.
+- Facilita la extensión del sistema de notificaciones.
+
 ---
 
 ## Descripción de las capas
@@ -197,26 +381,31 @@ La capa **Infrastructure** contiene las implementaciones concretas de los contra
 
 La capa **Web** corresponde a la interfaz de usuario desarrollada con ASP.NET Core MVC. Incluye los controladores, vistas, recursos estáticos y configuraciones necesarias para que los usuarios interactúen con el sistema. Esta capa recibe las solicitudes del usuario y muestra la información procesada por las demás capas.
 
+## CitasApp.Api
+
+La capa **Api** expone la funcionalidad del sistema mediante servicios REST, permitiendo que aplicaciones externas consuman la información del sistema de citas médicas.
+
+
 ---
 
 # 📷 Capturas de pantalla
 
 
-![Home](img/Home.png)
+![Home](CitasApp.Web/img/Home.png)
 
-![Privacy](img/Privacy.png)
+![Privacy](CitasApp.Web/img/Privacy.png)
 
-![Cita](img/Cita.png)
+![Cita](CitasApp.Web/img/Cita.png)
 
-![Agregar Cita](img/AgCita.png)
+![Agregar Cita](CitasApp.Web/img/AgCita.png)
 
-![Médico](img/Medico.png)
+![Médico](CitasApp.Web/img/Medico.png)
 
-![Agregar Médico](img/AgMedico.png)
+![Agregar Médico](CitasApp.Web/img/AgMedico.png)
 
-![Paciente](img/Paciente.png)
+![Paciente](CitasApp.Web/img/Paciente.png)
 
-![Agregar Paciente](img/AgPaciente.png)
+![Agregar Paciente](CitasApp.Web/img/AgPaciente.png)
 
 ---
 
