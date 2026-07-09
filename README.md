@@ -411,17 +411,19 @@ La capa **Api** expone la funcionalidad del sistema mediante servicios REST, per
 
 # 🤖 Cláusula de IA
 
-En este proyecto se utilizaron herramientas de Inteligencia Artificial (IA) como apoyo técnico y de consulta. 
+Durante el desarrollo del proyecto se utilizaron herramientas de Inteligencia Artificial (IA) como apoyo académico y técnico para complementar el proceso de aprendizaje y desarrollo del sistema.
 
-La IA se usó específicamente para:
+La IA fue utilizada específicamente para:
 
-- Datos: Ayuda con la lectura y sincronización de archivos JSON.
+- Brindar soporte en la resolución de errores de compilación, configuración y depuración del proyecto.
+- Generar sugerencias para la organización de la solución y la separación de responsabilidades entre las capas.
+- Apoyar en la elaboración de la documentación técnica del sistema, incluyendo:
+  - `arquitectura.md`
+  - Diagramas realizados con Mermaid.
+- Proporcionar recomendaciones para el diseño visual de la interfaz y la personalización mediante CSS.
+- Servir como herramienta de consulta para la comprensión de conceptos, tecnologías y buenas prácticas de desarrollo de software.
 
-- Controladores: Soporte para conectar los controladores con el almacenamiento.
-
-- Diseño: Sugerencias de estilos CSS y diseño visual.
-
-- Vistas: Apoyo para crear los formularios y botones de pacientes, médicos y citas.
+La Inteligencia Artificial fue utilizada únicamente como una herramienta de apoyo y consulta. Todas las decisiones de diseño, implementación, integración, pruebas, corrección de errores y validación final del sistema fueron realizadas por la autora del proyecto.
 
 ---
 
