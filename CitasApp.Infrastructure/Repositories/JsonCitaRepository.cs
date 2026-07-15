@@ -40,5 +40,27 @@ namespace CitasApp.Infrastructure.Repositories
         // CORRECCIÓN: Cambiado de List<Cita> a IEnumerable<Cita> para cumplir con la interfaz
         public List<Cita> ObtenerPorPaciente(int pacienteId) =>
             ObtenerTodas().Where(c => c.PacienteId == pacienteId).ToList();
+
+        public void Agregar(Cita cita)
+        {
+            var citas = ObtenerTodas().ToList();
+
+            cita.Id = citas.Count == 0 ? 1 : citas.Max(c => c.Id) + 1;
+            citas.Add(cita);
+
+            var citasJson = citas.Select(c => new CitaJson
+            {
+                Id = c.Id,
+                PacienteId = c.PacienteId,
+                MedicoId = c.MedicoId,
+                Fecha = c.Fecha.ToString(),
+                Hora = c.Hora.ToString(),
+                Motivo = c.Motivo,
+                Estado = c.Estado
+            }).ToList();
+
+            var json = JsonSerializer.Serialize(citasJson, _options);
+            File.WriteAllText(_path, json);
+        }
     }
 }

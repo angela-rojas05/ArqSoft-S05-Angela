@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CitasApp.Domain.Models;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text.Json;
 using CitasApp.Domain.Interfaces;
 
 namespace CitasApp.Controllers
@@ -30,8 +26,6 @@ namespace CitasApp.Controllers
             return View(_citaRepo.ObtenerTodas());
         }
 
-        
-
         public IActionResult PorPaciente(int pacienteId)
         {
             ViewBag.Pacientes = _pacienteRepo.ObtenerTodos();
@@ -41,9 +35,23 @@ namespace CitasApp.Controllers
 
         public IActionResult Create()
         {
+            ViewBag.Pacientes = _pacienteRepo.ObtenerTodos().ToList();
+            ViewBag.Medicos = _medicoRepo.ObtenerTodos().ToList();
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Create(Cita cita)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Pacientes = _pacienteRepo.ObtenerTodos().ToList();
+                ViewBag.Medicos = _medicoRepo.ObtenerTodos().ToList();
+                return View(cita);
+            }
+
+            _citaRepo.Agregar(cita);
+            return RedirectToAction(nameof(Index));
+        }
     }
-
-
 }

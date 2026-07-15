@@ -8,5 +8,7 @@ namespace CitasApp.Domain.Interfaces
         IEnumerable<Cita> ObtenerTodas();
 
         List<Cita> ObtenerPorPaciente(int pacienteId);
+
+        void Agregar(Cita cita);
     }
 }

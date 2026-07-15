@@ -31,5 +31,17 @@ namespace CitasApp.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Create(Medico medico)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(medico);
+            }
+
+            _repo.Agregar(medico);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
