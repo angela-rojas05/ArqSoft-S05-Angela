@@ -2,6 +2,7 @@ using CitasApp.Domain.Interfaces;
 using CitasApp.Infrastructure.Data;
 using CitasApp.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,14 +13,16 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<CitasAppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("CitasAppConnection")));
 
-/*builder.Services.AddScoped<IPacienteRepository, JsonPacienteRepository>();
-builder.Services.AddScoped<IMedicoRepository, JsonMedicoRepository>();
-builder.Services.AddScoped<ICitaRepository, JsonCitaRepository>();*/
-
 builder.Services.AddScoped<IPacienteRepository, PostgresPacienteRepository>();
 builder.Services.AddScoped<IMedicoRepository, PostgresMedicoRepository>();
 builder.Services.AddScoped<ICitaRepository, PostgresCitaRepository>();
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.AccessDeniedPath = "/Account/Login";
+    });
 
 var app = builder.Build();
 
@@ -34,6 +37,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

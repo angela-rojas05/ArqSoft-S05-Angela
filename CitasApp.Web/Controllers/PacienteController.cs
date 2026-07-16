@@ -1,14 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CitasApp.Domain.Interfaces;
 using CitasApp.Domain.Models;
-using CitasApp.Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+ using Microsoft.AspNetCore.Authorization;
 
 namespace CitasApp.Controllers
 {
+    [Authorize]
     public class PacienteController : Controller
     {
         private readonly IPacienteRepository _repo;
 
-        public PacienteController(IPacienteRepository repo)
+    
+    public PacienteController(IPacienteRepository repo)
         {
             _repo = repo;
         }

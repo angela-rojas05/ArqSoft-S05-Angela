@@ -2,8 +2,13 @@
 using CitasApp.Domain.Models;
 using CitasApp.Domain.Interfaces;
 
-namespace CitasApp.Controllers
-{
+using Microsoft.AspNetCore.Authorization;
+
+
+namespace CitasApp.Controllers{
+
+
+    [Authorize]
     public class MedicoController : Controller
     {
         private readonly IMedicoRepository _repo;

@@ -7,32 +7,20 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-// Repositorios
-builder.Services.AddScoped<IPacienteRepository>(sp =>
+// Repositorios (registrados directo con DI, sin fábrica intermedia)
+if (builder.Environment.IsProduction())
 {
-    var env = sp.GetRequiredService<IWebHostEnvironment>();
-
-    var repo = RepositoryFactory.CrearPacienteRepository(
-        builder.Environment.EnvironmentName, env);
-
-    return new LoggingPacienteRepository(repo);
-});
-
-builder.Services.AddScoped<IMedicoRepository>(sp =>
+    builder.Services.AddScoped<IPacienteRepository>(sp =>
+        new LoggingPacienteRepository(new MemoriaPacienteRepository()));
+}
+else
 {
-    var env = sp.GetRequiredService<IWebHostEnvironment>();
+    builder.Services.AddScoped<IPacienteRepository>(sp =>
+        new LoggingPacienteRepository(new JsonPacienteRepository()));
+}
 
-    return RepositoryFactory.CrearMedicoRepository(
-        builder.Environment.EnvironmentName, env);
-});
-
-builder.Services.AddScoped<ICitaRepository>(sp =>
-{
-    var env = sp.GetRequiredService<IWebHostEnvironment>();
-
-    return RepositoryFactory.CrearCitaRepository(
-        builder.Environment.EnvironmentName, env);
-});
+builder.Services.AddScoped<IMedicoRepository, JsonMedicoRepository>();
+builder.Services.AddScoped<ICitaRepository, JsonCitaRepository>();
 
 // Observers
 builder.Services.AddScoped<ICitaObserver, SmsObserver>();

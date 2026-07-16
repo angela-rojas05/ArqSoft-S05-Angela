@@ -1,9 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CitasApp.Domain.Models;
 using CitasApp.Domain.Interfaces;
+ using Microsoft.AspNetCore.Authorization;
 
 namespace CitasApp.Controllers
 {
+
+   
+
+    [Authorize]
     public class CitaController : Controller
     {
         private readonly ICitaRepository _citaRepo;
@@ -19,24 +24,27 @@ namespace CitasApp.Controllers
             _medicoRepo = medicoRepo;
         }
 
+        private void CargarListasDropdown()
+        {
+            ViewBag.Pacientes = _pacienteRepo.ObtenerTodos().ToList();
+            ViewBag.Medicos = _medicoRepo.ObtenerTodos().ToList();
+        }
+
         public IActionResult Index()
         {
-            ViewBag.Pacientes = _pacienteRepo.ObtenerTodos();
-            ViewBag.Medicos = _medicoRepo.ObtenerTodos();
+            CargarListasDropdown();
             return View(_citaRepo.ObtenerTodas());
         }
 
         public IActionResult PorPaciente(int pacienteId)
         {
-            ViewBag.Pacientes = _pacienteRepo.ObtenerTodos();
-            ViewBag.Medicos = _medicoRepo.ObtenerTodos();
+            CargarListasDropdown();
             return View(_citaRepo.ObtenerPorPaciente(pacienteId));
         }
 
         public IActionResult Create()
         {
-            ViewBag.Pacientes = _pacienteRepo.ObtenerTodos().ToList();
-            ViewBag.Medicos = _medicoRepo.ObtenerTodos().ToList();
+            CargarListasDropdown();
             return View();
         }
 
@@ -45,8 +53,7 @@ namespace CitasApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Pacientes = _pacienteRepo.ObtenerTodos().ToList();
-                ViewBag.Medicos = _medicoRepo.ObtenerTodos().ToList();
+                CargarListasDropdown();
                 return View(cita);
             }
 
